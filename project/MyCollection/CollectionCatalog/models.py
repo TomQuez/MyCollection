@@ -13,7 +13,7 @@ class Object(models.Model):
     id=models.UUIDField(primary_key=True,default=uuid.uuid4,help_text='Unique ID for this particular object')
     name=models.CharField(max_length=200,help_text='Enter a name for your object,a title for your book, or the model of your watch')
     description=models.TextField(max_length=1500,help_text='Enter a brief description of your object')
-    image=models.ImageField(upload_to='images/', null=True, blank=True)
+    image=models.ImageField(upload_to='images/', null=True, blank=True,validators=[validate_image_extension])
     
     def __str__(self):
         """function required to manipulate an object"""
@@ -54,3 +54,5 @@ class Collection(models.Model):
     """class that represent a collection of objects"""
     name=models.CharField(max_length=200,help_text='Enter a name for your collection')
     category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
+    objects=models.ManyToManyField(Object,help_text='Objects in this collection' )
+    
