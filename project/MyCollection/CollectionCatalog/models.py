@@ -56,3 +56,10 @@ class Collection(models.Model):
     category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
     objects=models.ManyToManyField(Object,help_text='Objects in this collection' )
     
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        """function required to display the detail of a collection"""
+        return reverse('collection-detail',args=[str(self.id)])
+    
