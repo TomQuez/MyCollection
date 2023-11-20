@@ -7,10 +7,21 @@ class CollectionAdmin(admin.ModelAdmin):
 
 class CollectionObjectAdmin(admin.ModelAdmin):
     list_display=('name','id')
+    
+
+  
 
 class BookAdmin(admin.ModelAdmin):
-    list_display=('name','author','type','edition')
+    list_display=('name','author','type','edition','editeur')
     list_filter=('name','type','edition')
+    fieldsets=(
+        (None,{
+            'fields':('name','author')
+        }),
+        ('Détails de l\'édition',{
+            'fields':('type','edition','editeur')
+        })
+    )
 
 class WatchAdmin(admin.ModelAdmin):
     list_display=('name','brand','type_of_mecanism')
