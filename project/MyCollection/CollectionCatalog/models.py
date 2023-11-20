@@ -84,3 +84,5 @@ class Collection(models.Model):
         """function required to display the detail of a collection"""
         return reverse('collection-detail',args=[str(self.id)])
     
+
+    
