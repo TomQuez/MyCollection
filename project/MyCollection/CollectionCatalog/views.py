@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Collection, CollectionObject,Category,Book,Watch
 from django.http import JsonResponse
+from django.views import generic
 
 # Create your views here.
 def index(request):
@@ -35,3 +36,5 @@ def get_collections_data(request):
     }
     return JsonResponse(context)
     
+class CollectionDetailView(generic.DetailView):
+    model=Collection

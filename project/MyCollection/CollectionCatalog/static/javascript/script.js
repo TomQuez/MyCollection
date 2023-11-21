@@ -24,11 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     collections.forEach((collection) => {
       const collectionDiv = document.createElement("div");
+      const collectionObjects = document.createElement("ul");
 
       collectionDiv.innerHTML = `
-        <h2>${collection.name}</h2>
-        
-        `;
+        <h2>${collection.name}</h2>`;
+      collection.collection_object.forEach((object) => {
+        const objectItem = document.createElement("li");
+        objectItem.textContent = object.object_name;
+        // console.log(object.object_name);
+        collectionObjects.appendChild(objectItem);
+
+        // console.log(collectionObjects);
+      });
+      collectionDiv.appendChild(collectionObjects);
       collectionList.appendChild(collectionDiv);
     });
   }
