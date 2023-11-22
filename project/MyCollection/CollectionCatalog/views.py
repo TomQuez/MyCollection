@@ -3,9 +3,15 @@ from .models import Collection, CollectionObject,Category,Book,Watch
 from django.http import JsonResponse
 from django.views import generic
 
+
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    num_visits=request.session.get('num_visits',1)
+    request.session['num_visits']=num_visits+1 
+    context={
+        'num_visits':num_visits
+    }
+    return render(request,'index.html',context=context)
 
 def get_collections_data(request):
     collections=Collection.objects.all()
