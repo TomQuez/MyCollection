@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Collection, CollectionObject,Category,Book,Watch
 from django.http import JsonResponse
 from django.views import generic
@@ -35,6 +35,20 @@ def get_collections_data(request):
         'collections':catalog_data,
     }
     return JsonResponse(context)
+
+def collection_details(request):
+    collection_id=request.GET.get('id')
+    context={'collection_id':collection_id}
+    return render(request,'collection_detail.html',context)
     
-class CollectionDetailView(generic.DetailView):
-    model=Collection
+def get_collection_details(request,id):
+    collection=get_object_or_404(Collection,id=id)
+    data={
+        'name':collection.name,
+        'category':collection.category.name,
+        'collection_objects':[
+            {'name':obj.name,'description':obj.description} for obj in collection.collection_objects.all()
+        ]
+    }
+    
+    return JsonResponse(data)
