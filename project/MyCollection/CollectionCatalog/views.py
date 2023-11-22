@@ -47,7 +47,7 @@ def get_collection_details(request,id):
         'name':collection.name,
         'category':collection.category.name,
         'collection_objects':[
-            {'name':obj.name,'description':obj.description} for obj in collection.collection_objects.all()
+            {'name':obj.name,'description':obj.description, 'image':obj.image.url if obj.image else None,} for obj in collection.collection_objects.all()
         ]
     }
     

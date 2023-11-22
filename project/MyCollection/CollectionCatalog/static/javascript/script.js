@@ -33,7 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
       collectionTitle.style.cursor = "pointer";
       collectionTitle.addEventListener("click", () => {
         const collectionId = collection.id;
-        window.location.href = `collection_details/?id=${collectionId}`;
+        const collectionDetailsUrl = new URL(
+          `/collection/collection_details/?id=${collectionId}`,
+          window.location.origin
+        );
+        window.location.href = collectionDetailsUrl.href;
       });
       collectionDiv.appendChild(collectionTitle);
       // collectionDiv.innerHTML = `
@@ -52,10 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function loadCollectionDetails(collectionId) {
     if (collectionId) {
-      fetch(`/collection/get_collection_details/${collectionId}`)
+      fetch(`/collection/get_collection_details/${collectionId}/`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           updateCollectionDetail(data);
         })
         .catch((error) => {
@@ -74,6 +78,16 @@ document.addEventListener("DOMContentLoaded", () => {
     data.collection_objects.forEach((object) => {
       const objectItem = document.createElement("li");
       objectItem.textContent = `${object.name} : ${object.description}`;
+      if (object.image) {
+        const imageElement = document.createElement("img");
+        console.log(imageElement);
+        console.log(object.image);
+
+        imageElement.src = object.image;
+        imageElement.alt = object.name;
+        console.log(imageElement.src);
+        objectItem.appendChild(imageElement);
+      }
       collectionObjects.appendChild(objectItem);
     });
   }
