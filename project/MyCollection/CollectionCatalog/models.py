@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 import uuid
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 
 def validate_image_extension(value):
@@ -76,6 +77,7 @@ class Collection(models.Model):
     name=models.CharField(max_length=200,help_text='Enter a name for your collection')
     category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
     collection_objects=models.ManyToManyField('CollectionObject',help_text='Objects in this collection' )
+    owner=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,null=True, blank=True)
     
     def __str__(self):
         return self.name

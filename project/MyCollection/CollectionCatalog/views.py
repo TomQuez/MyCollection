@@ -42,7 +42,7 @@ def get_collections_data(request):
         'collections':catalog_data,
     }
     return JsonResponse(context)
-
+@login_required
 def collection_details(request):
     collection_id=request.GET.get('id')
     context={'collection_id':collection_id}
