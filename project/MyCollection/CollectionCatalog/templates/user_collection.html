@@ -1,0 +1,15 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+<h2>Mes collections :</h2>
+{% if user_collections %}
+    <ul>
+        {% for collection in user_collections %}
+        <li>
+            {{collection.name}}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You don't have any collection yet.</p>
+{% endif %}
+{% endblock %}

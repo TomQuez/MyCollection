@@ -59,3 +59,11 @@ def get_collection_details(request,id):
     }
     
     return JsonResponse(data)
+@login_required
+def user_collections(request):
+    user_collections=Collection.objects.filter(owner=request.user)
+    context={
+        'user_collections':user_collections,
+    }
+    
+    return render(request,'user_collection.html',context)

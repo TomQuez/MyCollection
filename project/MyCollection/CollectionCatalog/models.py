@@ -10,13 +10,13 @@ def validate_image_extension(value):
         raise ValidationError("Seuls les fichiers image .jpg, .jpeg, .png, .gif sont autorisés")
 
 # Create your models here.
+
 class CollectionObject(models.Model):
     """generic class that represent an object contained in a collection"""
     id=models.UUIDField(primary_key=True,default=uuid.uuid4,help_text='Unique ID for this particular object')
     name=models.CharField(max_length=200,help_text='Enter a name for your object,a title for your book, or the model of your watch')
     description=models.TextField(max_length=1500,help_text='Enter a brief description of your object')
     image=models.ImageField(upload_to='images/', null=True, blank=True,validators=[validate_image_extension])
-    
    
     
     def __str__(self):
@@ -86,5 +86,6 @@ class Collection(models.Model):
         """function required to display the detail of a collection"""
         return reverse('collection-detail',args=[str(self.id)])
     
+
 
     

@@ -1,9 +1,11 @@
 from django.contrib import admin
 from CollectionCatalog.models import  Collection, Category,Book, Watch, CollectionObject
 # Register your models here.
+
 class CollectionAdmin(admin.ModelAdmin):
-    list_display=('name','category')
-    list_filter=('category','name')
+    list_display=('owner','name','category')
+    list_filter=('owner','category','name')
+   
 
 class CollectionObjectAdmin(admin.ModelAdmin):
     list_display=('name','id')
